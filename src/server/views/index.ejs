@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- titleTag %>
+    <link rel="stylesheet" type="text/css" href="<%= assets.main.css %>">
+  </head>
+  <body>
+    <div id="root"><%- appString %></div>
+    <script type="text/javascript">
+      window.__PRELOADED_STATE__ = <%- JSON.stringify(preloadedState).replace(/</g, '\\u003c') %>
+    </script>
+    <script type="text/javascript" src="<%= assets.main.js %>"></script>
+  </body>
+</html>

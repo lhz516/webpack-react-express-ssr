@@ -1,0 +1,17 @@
+{
+  "allowJs": true,
+  "compilerOptions": {
+    "target": "esnext",
+    "baseUrl": "./",
+    "paths": {
+      "@settings": ["settings.js"],
+      "@utils/*": ["src/utils/*"],
+      "@test-utils/*": ["src/test-utils/*"],
+      "@components/*": ["src/components/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@actions/*": ["src/actions/*"],
+      "@hooks/*": ["src/hooks/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
