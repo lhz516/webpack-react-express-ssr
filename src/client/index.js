@@ -6,7 +6,10 @@ import { Router } from 'react-router'
 import store from './store'
 
 const startup = () => {
-  hydrate(<App Router={Router} routerProps={{ history }} store={store} />, document.getElementById('root'))
+  hydrate(
+    <App Router={Router} routerProps={{ history }} store={store} />,
+    document.getElementById('root')
+  )
 }
 
 startup()

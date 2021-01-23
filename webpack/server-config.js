@@ -17,12 +17,6 @@ module.exports = (env = {}) => {
       filename: isProd ? 'app-prod.js' : 'app-dev.js',
       libraryTarget: 'commonjs',
     },
-    node: {
-      // Need this when working with express, otherwise the build fails
-      // if you don't put this, __dirname and __filename return blank or '/'
-      __dirname: false,
-      __filename: false,
-    },
     resolve: {
       alias: {
         '@settings': path.resolve(__dirname, '../settings.js'),
@@ -51,8 +45,11 @@ module.exports = (env = {}) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-env', { targets: { node: 'current' } }], ['@babel/preset-react']],
-              plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-syntax-dynamic-import'],
+              presets: [
+                ['@babel/preset-env', { targets: { node: 'current' } }],
+                ['@babel/preset-react'],
+              ],
+              plugins: ['@babel/plugin-proposal-class-properties'],
             },
           },
         },

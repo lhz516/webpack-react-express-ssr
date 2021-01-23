@@ -3,9 +3,15 @@ const path = require('path')
 const AssetsPlugin = require('assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 const { getWebpackDefinePlugin } = require('./utils')
-const { DEV_ASSETS_HOST, DEV_ASSETS_PORT, PROD_ASSETS_HOST, PROD_ASSETS_PORT } = require('../settings')
+const {
+  DEV_ASSETS_HOST,
+  DEV_ASSETS_PORT,
+  PROD_ASSETS_HOST,
+  PROD_ASSETS_PORT,
+} = require('../settings')
 
 const emptyFunc = () => {}
 
@@ -50,15 +56,10 @@ module.exports = (env = {}) => {
             loader: 'babel-loader',
             options: {
               presets: [
-                ['@babel/preset-env', { targets: isProd ? 'defaults, not ie 11' : { chrome: 87 } }],
+                ['@babel/preset-env', { targets: 'defaults, not ie 10-11' }],
                 ['@babel/preset-react'],
               ],
-              plugins: [
-                '@babel/plugin-proposal-optional-chaining',
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-syntax-dynamic-import',
-                // ['@babel/plugin-transform-runtime', { corejs: 3 }],
-              ],
+              plugins: ['@babel/plugin-proposal-class-properties'],
             },
           },
         },
@@ -100,6 +101,8 @@ module.exports = (env = {}) => {
       isProd ? new CompressionPlugin() : emptyFunc,
       isAnalysis ? new BundleAnalyzerPlugin() : emptyFunc,
     ],
-    devtool: !isProd ? 'cheap-module-source-map' : 'hidden-cheap-module-source-map',
+    devtool: !isProd
+      ? 'cheap-module-source-map'
+      : 'hidden-cheap-module-source-map',
   }
 }

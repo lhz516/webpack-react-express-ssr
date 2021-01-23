@@ -18,7 +18,11 @@ function render(
   element,
   {
     state = {},
-    store = createStore(reducers, state, compose(applyMiddleware(thunk.withExtraArgument({ history })))),
+    store = createStore(
+      reducers,
+      state,
+      compose(applyMiddleware(thunk.withExtraArgument({ history })))
+    ),
     ...renderOptions
   } = {}
 ) {

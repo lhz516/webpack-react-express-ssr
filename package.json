@@ -3,20 +3,21 @@
   "version": "0.0.1",
   "description": "Webpack React SSR Boilerplate",
   "scripts": {
-    "dev": "node scripts/dev.js",
+    "dev": "node scripts/dev",
+    "prod": "node dist/server/app-prod",
     "build": "run-s clean build:web build:node",
     "build:web": "webpack --config ./webpack/client-config.js --env prod",
     "build:node": "webpack --config ./webpack/server-config.js --env prod",
     "clean": "shx rm -rf dist && shx mkdir -p dist/server",
+    "lint": "eslint . --fix",
     "test": "jest --config jest/config.js",
     "cov": "jest --config jest/config.js --coverage",
     "analysis": "webpack --config ./webpack/client-config.js --env prod --env analysis"
   },
   "repository": {
     "type": "git",
-    "url": "tbd"
+    "url": "https://github.com/lhz516/webpack-react-express-ssr"
   },
-  "author": "Hanz Luo",
   "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.5",
@@ -39,9 +40,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@testing-library/dom": "^7.29.4",

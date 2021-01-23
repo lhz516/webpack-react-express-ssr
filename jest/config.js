@@ -11,7 +11,10 @@ module.exports = {
     '^@actions(.*)$': '<rootDir>/src/actions$1',
     '^.+\\.(css|scss)$': '<rootDir>/jest/no-op.js',
   },
-  collectCoverageFrom: ['<rootDir>/src/**/*.js', '!<rootDir>/src/test-utils/**/*.js'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.js',
+    '!<rootDir>/src/test-utils/**/*.js',
+  ],
   coverageDirectory: '<rootDir>/jest/coverage',
   setupFilesAfterEnv: ['<rootDir>/jest/setup.js'],
 }

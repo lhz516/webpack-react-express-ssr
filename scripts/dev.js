@@ -1,4 +1,5 @@
 const path = require('path')
+const { execSync } = require('child_process')
 const webpack = require('webpack')
 const webpackDevServer = require('webpack-dev-server')
 const nodemon = require('nodemon')
@@ -31,9 +32,15 @@ clientCompiler.hooks.afterEmit.tap('clientAfterEmitPlugin', () => {
         nodemonInitialized = true
         // Starting nodemon watch
         console.info('[nodemon] starting')
-        nodemon({ script: 'dist/server/app-dev', ext: 'js json', watch: ['dist/server/app-dev.js'] })
+        nodemon({
+          script: 'dist/server/app-dev',
+          ext: 'js json',
+          watch: ['dist/server/app-dev.js'],
+        })
           .on('start', () => {
-            console.info(`[nodemon] started. Now starting local web server at port ${DEV_PORT}`)
+            console.info(
+              `[nodemon] started. Now starting local web server at port ${DEV_PORT}`
+            )
           })
           .on('crash', () => {
             console.error('[nodemon] crashed')
@@ -53,6 +60,8 @@ clientCompiler.hooks.afterEmit.tap('clientAfterEmitPlugin', () => {
 
 webpackDevServer.addDevServerEntrypoints(webpackClientConfig, devServerOptions)
 const devServer = new webpackDevServer(clientCompiler, devServerOptions)
+
+execSync('yarn clean')
 
 devServer.listen(DEV_ASSETS_PORT, DEV_ASSETS_HOST, (err) => {
   if (err) {
