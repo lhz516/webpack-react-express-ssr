@@ -1,5 +1,5 @@
 module.exports = {
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   env: {
     es6: true,
     browser: true,
@@ -22,6 +22,10 @@ module.exports = {
   ],
   parserOptions: {
     sourceType: 'module',
+    requireConfigFile: false,
+    babelOptions: {
+      presets: [['@babel/preset-react']],
+    },
   },
   settings: {
     react: {
