@@ -1,13 +1,12 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
 import App from '@components/app/app'
-import history from './history'
-import { Router } from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
 import store from './store'
 
 const startup = () => {
   hydrate(
-    <App Router={Router} routerProps={{ history }} store={store} />,
+    <App Router={BrowserRouter} store={store} />,
     document.getElementById('root')
   )
 }

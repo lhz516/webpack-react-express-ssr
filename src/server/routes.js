@@ -1,6 +1,6 @@
 import React from 'react'
 import express from 'express'
-import { StaticRouter } from 'react-router'
+import { StaticRouter } from 'react-router-dom/server'
 import { Helmet } from 'react-helmet'
 import { renderToString } from 'react-dom/server'
 import App from '@components/app/app'
@@ -12,7 +12,10 @@ const router = express.Router()
 
 /* GET all pages */
 router.get('/*', (req, res) => {
-  const context = {}
+  // Redirect
+  // if (req.url === '/some-page') {
+  //   return res.redirect(301, '/')
+  // }
 
   const initialReduxState = {
     global: { foo: 0 },
@@ -24,7 +27,6 @@ router.get('/*', (req, res) => {
       Router={StaticRouter}
       routerProps={{
         location: req.originalUrl,
-        context,
       }}
       store={store}
     />
@@ -33,11 +35,6 @@ router.get('/*', (req, res) => {
   const preloadedState = store.getState()
 
   const helmet = Helmet.renderStatic()
-
-  if (context.url) {
-    // Somewhere a `<Redirect>` was rendered
-    return res.redirect(301, context.url)
-  }
 
   res.render('index', {
     appString,
