@@ -3,8 +3,9 @@ const path = require('path')
 const AssetsPlugin = require('assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin
+const CopyPlugin = require('copy-webpack-plugin')
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { getWebpackDefinePlugin } = require('./utils')
 const {
   DEV_ASSETS_HOST,
@@ -97,7 +98,11 @@ module.exports = (env = {}) => {
         filename: './dist/server/assets.json',
         fileTypes: ['js', 'css'],
       }),
-      !isProd ? new webpack.HotModuleReplacementPlugin() : emptyFunc,
+      isProd
+        ? new CopyPlugin({
+            patterns: [{ from: './src/public', to: './' }],
+          })
+        : emptyFunc,
       isProd ? new CompressionPlugin() : emptyFunc,
       isAnalysis ? new BundleAnalyzerPlugin() : emptyFunc,
     ],

@@ -1,7 +1,7 @@
 const path = require('path')
 const { execSync } = require('child_process')
 const webpack = require('webpack')
-const webpackDevServer = require('webpack-dev-server')
+const WebpackDevServer = require('webpack-dev-server')
 const nodemon = require('nodemon')
 const webpackClientConfig = require('../webpack/client-config')()
 const webpackServerConfig = require('../webpack/server-config')()
@@ -11,8 +11,9 @@ let clientAssetsInitialized = false
 let nodemonInitialized = false
 
 const devServerOptions = {
-  contentBase: path.join(__dirname, '../dist/client/assets'),
-  compress: true,
+  static: {
+    directory: path.join(__dirname, '../dist/client/assets'),
+  },
   host: DEV_ASSETS_HOST,
   port: DEV_ASSETS_PORT,
   headers: { 'Access-Control-Allow-Origin': '*' },
@@ -58,14 +59,14 @@ clientCompiler.hooks.afterEmit.tap('clientAfterEmitPlugin', () => {
   }
 })
 
-webpackDevServer.addDevServerEntrypoints(webpackClientConfig, devServerOptions)
-const devServer = new webpackDevServer(clientCompiler, devServerOptions)
+const devServer = new WebpackDevServer(devServerOptions, clientCompiler)
 
 execSync('yarn clean')
 
-devServer.listen(DEV_ASSETS_PORT, DEV_ASSETS_HOST, (err) => {
+devServer.startCallback((err) => {
   if (err) {
-    return console.error('[webpack] devServer listening failed')
+    console.error('[webpack] devServer listening failed')
+    return console.error(err)
   }
   console.info(`[webpack] devServer listening on port ${DEV_ASSETS_PORT}`)
 })

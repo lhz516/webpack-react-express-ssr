@@ -14,6 +14,7 @@ const Home = () => {
       <Helmet>
         <title>Home page title</title>
       </Helmet>
+      <img src="/example.jpg" alt="Example" />
       <p>
         foo: <span className="home__foo">{foo}</span>
       </p>

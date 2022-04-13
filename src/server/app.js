@@ -11,12 +11,27 @@ const app = express()
 app.set('views', path.join(__dirname, '../../src/server/views'))
 app.set('view engine', 'ejs')
 
-app.use(logger('dev'))
+if (__DEV__) {
+  app.use(logger('dev'))
+} else {
+  app.use(
+    logger('common', {
+      skip(req, res) {
+        return res.statusCode < 400
+      },
+    })
+  )
+}
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, '../../src/server/public')))
-app.use(express.static(path.join(__dirname, '../client/assets')))
+
+if (__DEV__) {
+  app.use(express.static(path.join(__dirname, '../../src/public')))
+} else {
+  app.use(express.static(path.join(__dirname, '../client/assets')))
+}
 
 app.use('/', routes)
 
