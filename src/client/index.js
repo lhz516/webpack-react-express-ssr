@@ -1,20 +1,15 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { hydrateRoot } from 'react-dom/client'
 import App from '@components/app/app'
 import { BrowserRouter } from 'react-router-dom'
 import store from './store'
 
-const startup = () => {
-  hydrate(
-    <App Router={BrowserRouter} store={store} />,
-    document.getElementById('root')
-  )
-}
+const createApp = () => <App Router={BrowserRouter} store={store} />
 
-startup()
+const root = hydrateRoot(document.getElementById('root'), createApp())
 
 if (module.hot) {
   module.hot.accept('../components/app/app', () => {
-    startup()
+    root.render(createApp())
   })
 }

@@ -60,7 +60,7 @@ module.exports = (env = {}) => {
                 ['@babel/preset-env', { targets: 'defaults, not ie 10-11' }],
                 ['@babel/preset-react'],
               ],
-              plugins: ['@babel/plugin-proposal-class-properties'],
+              plugins: [],
             },
           },
         },

@@ -4,9 +4,6 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from '@reducers/index.js'
-import { createBrowserHistory } from 'history'
-
-const history = createBrowserHistory()
 
 /**
  * Render function for testing
@@ -21,7 +18,7 @@ function render(
     store = createStore(
       reducers,
       state,
-      compose(applyMiddleware(thunk.withExtraArgument({ history })))
+      compose(applyMiddleware(thunk.withExtraArgument()))
     ),
     ...renderOptions
   } = {}
