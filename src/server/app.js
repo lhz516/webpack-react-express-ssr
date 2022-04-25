@@ -1,4 +1,3 @@
-import createError from 'http-errors'
 import express from 'express'
 import path from 'path'
 import cookieParser from 'cookie-parser'
@@ -33,22 +32,26 @@ if (__DEV__) {
   app.use(express.static(path.join(__dirname, '../client/assets')))
 }
 
+// All routes for React app
 app.use('/', routes)
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404))
-})
-
 // error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = __DEV__ ? err : {}
+app.use((err, req, res, next) => {
+  let error
 
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
+  // Only show error in dev mode
+  if (__DEV__) {
+    error = {
+      name: err.name,
+      message: err.message,
+      stack: err.stack,
+    }
+  }
+  res.status(500)
+  res.render('error', { error })
+
+  // Show error in the console
+  next(err)
 })
 
 export default app
