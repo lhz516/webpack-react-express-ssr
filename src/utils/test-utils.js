@@ -4,9 +4,10 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from '@reducers/index.js'
+import { HelmetProvider } from 'react-helmet-async'
 
 /**
- * Render function for testing
+ * Render function that renders an element inside Redux Provider
  *
  * @param {ReactElement} element
  * @param {Object} options
@@ -24,7 +25,11 @@ function render(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>
+    return (
+      <HelmetProvider>
+        <Provider store={store}>{children}</Provider>
+      </HelmetProvider>
+    )
   }
   return rtlRender(element, { wrapper: Wrapper, ...renderOptions })
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import express from 'express'
 import { StaticRouter } from 'react-router-dom/server'
-import { Helmet } from 'react-helmet'
 import { renderToString } from 'react-dom/server'
 import App from '@components/app/app'
 import assets from '@dist/server/assets.json'
@@ -17,6 +16,8 @@ router.get('/*', (req, res) => {
   //   return res.redirect(301, '/')
   // }
 
+  const helmetContext = {}
+
   const initialReduxState = {
     global: { foo: 0 },
   }
@@ -29,12 +30,13 @@ router.get('/*', (req, res) => {
         location: req.originalUrl,
       }}
       store={store}
+      helmetContext={helmetContext}
     />
   )
 
   const preloadedState = store.getState()
 
-  const helmet = Helmet.renderStatic()
+  const { helmet } = helmetContext
 
   res.render('index', {
     appString,
