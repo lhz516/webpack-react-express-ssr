@@ -1,10 +1,9 @@
 import React from 'react'
 import { render as rtlRender } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import reducers from '@reducers/index.js'
+import { reducer } from '@slices'
 import { HelmetProvider } from 'react-helmet-async'
+import { configureStore } from '@reduxjs/toolkit'
 
 /**
  * Render function that renders an element inside Redux Provider
@@ -16,11 +15,11 @@ function render(
   element,
   {
     state = {},
-    store = createStore(
-      reducers,
-      state,
-      compose(applyMiddleware(thunk.withExtraArgument()))
-    ),
+    store = configureStore({
+      reducer,
+      preloadedState: state,
+      middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    }),
     ...renderOptions
   } = {}
 ) {

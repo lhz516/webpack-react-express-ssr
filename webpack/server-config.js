@@ -22,7 +22,7 @@ module.exports = (env = {}) => {
         '@settings': path.resolve(__dirname, '../settings.js'),
         '@utils': path.resolve(__dirname, '../src/utils'),
         '@components': path.resolve(__dirname, '../src/components'),
-        '@reducers': path.resolve(__dirname, '../src/reducers'),
+        '@slices': path.resolve(__dirname, '../src/slices'),
         '@actions': path.resolve(__dirname, '../src/actions'),
         '@hooks': path.resolve(__dirname, '../src/hooks'),
         '@dist': path.resolve(__dirname, '../dist'),

@@ -4,8 +4,8 @@ import { StaticRouter } from 'react-router-dom/server'
 import { renderToString } from 'react-dom/server'
 import App from '@components/app/app'
 import assets from '@dist/server/assets.json'
-import { createStore } from 'redux'
-import reducers from '@reducers'
+import { configureStore } from '@reduxjs/toolkit'
+import { reducer } from '@slices'
 
 const router = express.Router()
 
@@ -18,10 +18,14 @@ router.get('/*', (req, res) => {
 
   const helmetContext = {}
 
-  const initialReduxState = {
+  const preloadedState = {
     global: { foo: 0 },
   }
-  const store = createStore(reducers, initialReduxState)
+  const store = configureStore({
+    reducer,
+    preloadedState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  })
 
   const appString = renderToString(
     <App
@@ -34,14 +38,14 @@ router.get('/*', (req, res) => {
     />
   )
 
-  const preloadedState = store.getState()
+  const injectedPreloadState = store.getState()
 
   const { helmet } = helmetContext
 
   res.render('index', {
     appString,
     titleTag: helmet.title.toString(),
-    preloadedState,
+    injectedPreloadState,
     assets,
   })
 })

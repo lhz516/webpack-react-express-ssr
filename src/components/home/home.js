@@ -1,3 +1,4 @@
+import { increment } from '@slices/global'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,7 +8,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const foo = useSelector((state) => state.global.foo)
   const handleAddFoo = () => {
-    dispatch({ type: 'ADD_FOO' })
+    dispatch(increment())
   }
   return (
     <div className="home">

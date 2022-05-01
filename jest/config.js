@@ -7,7 +7,7 @@ module.exports = {
   moduleNameMapper: {
     '^@utils(.*)$': '<rootDir>/src/utils$1',
     '^@components(.*)$': '<rootDir>/src/components$1',
-    '^@reducers(.*)$': '<rootDir>/src/reducers$1',
+    '^@slices(.*)$': '<rootDir>/src/slices$1',
     '^@actions(.*)$': '<rootDir>/src/actions$1',
     '^.+\\.(css|scss)$': '<rootDir>/jest/no-op.js',
   },
