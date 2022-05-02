@@ -2,7 +2,9 @@ import express from 'express'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
+import proxy from 'express-http-proxy'
 import routes from './routes'
+const { DEV_ASSETS_HOST, DEV_ASSETS_PORT } = require('../../settings')
 
 const app = express()
 
@@ -27,7 +29,12 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 if (__DEV__) {
-  app.use(express.static(path.join(__dirname, '../../src/public')))
+  app.use(
+    '/static',
+    proxy(`${DEV_ASSETS_HOST}:${DEV_ASSETS_PORT}`, {
+      proxyReqPathResolver: (req) => `/static${req.url}`,
+    })
+  )
 } else {
   app.use(express.static(path.join(__dirname, '../client/assets')))
 }

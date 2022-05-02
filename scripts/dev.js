@@ -5,7 +5,12 @@ const WebpackDevServer = require('webpack-dev-server')
 const nodemon = require('nodemon')
 const webpackClientConfig = require('../webpack/client-config')()
 const webpackServerConfig = require('../webpack/server-config')()
-const { DEV_PORT, DEV_ASSETS_HOST, DEV_ASSETS_PORT } = require('../settings')
+const {
+  DEV_PORT,
+  DEV_ASSETS_HOST,
+  DEV_ASSETS_PORT,
+  DEV_HOST,
+} = require('../settings')
 
 let clientAssetsInitialized = false
 let nodemonInitialized = false
@@ -18,6 +23,7 @@ const devServerOptions = {
   port: DEV_ASSETS_PORT,
   headers: { 'Access-Control-Allow-Origin': '*' },
   hot: true,
+  open: [`http://${DEV_HOST}:${DEV_PORT}/`],
 }
 
 const nodeServerCompiler = webpack(webpackServerConfig)

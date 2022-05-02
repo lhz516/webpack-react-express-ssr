@@ -7,12 +7,6 @@ const CopyPlugin = require('copy-webpack-plugin')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { getWebpackDefinePlugin } = require('./utils')
-const {
-  DEV_ASSETS_HOST,
-  DEV_ASSETS_PORT,
-  PROD_ASSETS_HOST,
-  PROD_ASSETS_PORT,
-} = require('../settings')
 
 const emptyFunc = () => {}
 
@@ -29,12 +23,10 @@ module.exports = (env = {}) => {
       main: mainEntry,
     },
     output: {
-      path: path.resolve(__dirname, '../dist/client/assets'),
+      path: path.resolve(__dirname, '../dist/client/assets/static'),
       filename: 'bundle-[contenthash].js',
       chunkFilename: '[id].[chunkhash].js',
-      publicPath: isProd
-        ? `http://${PROD_ASSETS_HOST}:${PROD_ASSETS_PORT}/`
-        : `http://${DEV_ASSETS_HOST}:${DEV_ASSETS_PORT}/`,
+      publicPath: '/static/',
     },
     resolve: {
       alias: {
@@ -98,11 +90,9 @@ module.exports = (env = {}) => {
         filename: './dist/server/assets.json',
         fileTypes: ['js', 'css'],
       }),
-      isProd
-        ? new CopyPlugin({
-            patterns: [{ from: './src/public', to: './' }],
-          })
-        : emptyFunc,
+      new CopyPlugin({
+        patterns: [{ from: './src/public', to: './' }],
+      }),
       isProd ? new CompressionPlugin() : emptyFunc,
       isAnalysis ? new BundleAnalyzerPlugin() : emptyFunc,
     ],
