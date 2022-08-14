@@ -14,14 +14,14 @@ $ yarn dev # start server for development
 ### Tech Stack
 
 - React
-- Redux
+- Redux Toolkit
 - Express
-- Server Side Rendering
 - Webpack
 - Babel
 - SASS
 - DevServer
 - Hot Module Replacement
+- Server Side Rendering
 - ESLint
 - Prettier
 - Jest

@@ -9,6 +9,7 @@
       "@test-utils/*": ["src/test-utils/*"],
       "@components/*": ["src/components/*"],
       "@slices/*": ["src/slices/*"],
+      "@services/*": ["src/services/*"],
       "@actions/*": ["src/actions/*"],
       "@hooks/*": ["src/hooks/*"]
     }

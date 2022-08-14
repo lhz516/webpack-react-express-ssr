@@ -23,11 +23,15 @@ module.exports = (env = {}) => {
         '@utils': path.resolve(__dirname, '../src/utils'),
         '@components': path.resolve(__dirname, '../src/components'),
         '@slices': path.resolve(__dirname, '../src/slices'),
+        '@services': path.resolve(__dirname, '../src/services'),
         '@actions': path.resolve(__dirname, '../src/actions'),
         '@hooks': path.resolve(__dirname, '../src/hooks'),
         '@dist': path.resolve(__dirname, '../dist'),
       },
       extensions: ['.js', '.json'],
+      fallback: {
+        fetch: require.resolve('node-fetch'),
+      },
     },
     module: {
       rules: [
@@ -62,8 +66,12 @@ module.exports = (env = {}) => {
           __SERVER__: true,
           __DEV__: !isProd,
           __PROD__: isProd,
+          __TEST__: false,
         })
       ),
     ],
+    experiments: {
+      topLevelAwait: true,
+    },
   }
 }

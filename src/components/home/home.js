@@ -2,6 +2,7 @@ import { increment } from '@slices/global'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useDispatch, useSelector } from 'react-redux'
+import { useGetAllTodosQuery } from '@services/todos'
 import './home.scss'
 
 const Home = () => {
@@ -10,6 +11,9 @@ const Home = () => {
   const handleAddFoo = () => {
     dispatch(increment())
   }
+
+  const { data } = useGetAllTodosQuery()
+
   return (
     <div className="home">
       <Helmet>
@@ -22,6 +26,8 @@ const Home = () => {
       <button className="home__add-foo" onClick={handleAddFoo}>
         Add foo
       </button>
+      {/* There is no fetching state because the data is already in the html. */}
+      <p className="home__ssr">Dynamic SSR example: {data?.[0].text}</p>
     </div>
   )
 }

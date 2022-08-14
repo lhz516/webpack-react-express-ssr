@@ -4,13 +4,13 @@ import { StaticRouter } from 'react-router-dom/server'
 import { renderToString } from 'react-dom/server'
 import App from '@components/app/app'
 import assets from '@dist/server/assets.json'
-import { configureStore } from '@reduxjs/toolkit'
-import { reducer } from '@slices'
+import { createStore } from '@utils/redux'
+import todoService from '@services/todos'
 
-const router = express.Router()
+const pagesRouter = express.Router()
 
 /* GET all pages */
-router.get('/*', (req, res) => {
+pagesRouter.get('/*', async (req, res) => {
   // Redirect
   // if (req.url === '/some-page') {
   //   return res.redirect(301, '/')
@@ -21,22 +21,24 @@ router.get('/*', (req, res) => {
   const preloadedState = {
     global: { foo: 0 },
   }
-  const store = configureStore({
-    reducer,
-    preloadedState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  })
+  const store = createStore(preloadedState)
 
-  const appString = renderToString(
-    <App
-      Router={StaticRouter}
-      routerProps={{
-        location: req.originalUrl,
-      }}
-      store={store}
-      helmetContext={helmetContext}
-    />
-  )
+  const renderRoot = () =>
+    renderToString(
+      <App
+        Router={StaticRouter}
+        routerProps={{
+          location: req.originalUrl,
+        }}
+        store={store}
+        helmetContext={helmetContext}
+      />
+    )
+
+  renderRoot()
+  await Promise.all(todoService.util.getRunningOperationPromises())
+
+  const appString = renderRoot()
 
   const injectedPreloadState = store.getState()
 
@@ -50,4 +52,4 @@ router.get('/*', (req, res) => {
   })
 })
 
-export default router
+export default pagesRouter

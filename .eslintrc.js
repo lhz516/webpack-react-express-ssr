@@ -11,6 +11,7 @@ module.exports = {
     __SERVER__: false,
     __DEV__: false,
     __PROD__: false,
+    __TEST__: false,
   },
   plugins: ['prettier', 'jsx-a11y'],
   extends: [

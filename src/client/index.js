@@ -2,9 +2,11 @@ import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import App from '@components/app/app'
 import { BrowserRouter } from 'react-router-dom'
-import store from './store'
+import { createStore } from '@utils/redux'
 
-const createApp = () => <App Router={BrowserRouter} store={store} />
+const createApp = () => (
+  <App Router={BrowserRouter} store={createStore(window.__PRELOADED_STATE__)} />
+)
 
 const root = hydrateRoot(document.getElementById('root'), createApp())
 
