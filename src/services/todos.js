@@ -5,26 +5,18 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react'
 
-const createApi = buildCreateApi(
+// This createApi is for supporting SSR
+const createSsrApi = buildCreateApi(
   coreModule(),
-  // Turn off sideEffectsInRender in test env to avoid console warning
-  reactHooksModule({ unstable__sideEffectsInRender: !__TEST__ })
+  // Turn off sideEffectsInRender in test env and client env to avoid console warning
+  reactHooksModule({ unstable__sideEffectsInRender: !__TEST__ && __SERVER__ })
 )
 
-let fetch
-if (__TEST__) {
-  fetch = () => {}
-} else if (__CLIENT__) {
-  fetch = window.fetch
-} else {
-  fetch = await import('isomorphic-fetch').then((mod) => mod.default)
-}
-
-const todos = createApi({
+const todos = createSsrApi({
   reducerPath: 'todos',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3000/api/todos',
-    fetchFn: fetch,
+    fetchFn: global.fetch,
   }),
   endpoints: (builder) => ({
     getAllTodos: builder.query({

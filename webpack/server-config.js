@@ -29,9 +29,6 @@ module.exports = (env = {}) => {
         '@dist': path.resolve(__dirname, '../dist'),
       },
       extensions: ['.js', '.json'],
-      fallback: {
-        fetch: require.resolve('node-fetch'),
-      },
     },
     module: {
       rules: [

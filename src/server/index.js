@@ -1,6 +1,8 @@
+import './set-global'
 import http from 'http'
 import { DEV_PORT, PROD_PORT } from '@settings'
 import app from './app'
+
 /**
  * Get port and store in Express.
  */

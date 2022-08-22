@@ -43,4 +43,10 @@ module.exports = {
     ],
     'react/prop-types': 0,
   },
+  overrides: [
+    {
+      files: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: ['plugin:testing-library/react'],
+    },
+  ],
 }
