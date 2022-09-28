@@ -65,7 +65,7 @@
     "jest": "^29.0.1",
     "jest-environment-jsdom": "^29.0.1",
     "mini-css-extract-plugin": "^2.6.0",
-    "msw": "^0.45.0",
+    "msw": "^0.47.0",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "sass": "^1.32.2",
