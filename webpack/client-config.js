@@ -24,8 +24,8 @@ module.exports = (env = {}) => {
     },
     output: {
       path: path.resolve(__dirname, '../dist/client/assets/static'),
-      filename: 'bundle-[contenthash].js',
-      chunkFilename: '[id].[chunkhash].js',
+      filename: `bundle-[contenthash].${isProd ? 'js' : 'mjs'}`,
+      chunkFilename: `[id].[chunkhash].${isProd ? 'js' : 'mjs'}`,
       publicPath: '/static/',
     },
     resolve: {
@@ -50,7 +50,17 @@ module.exports = (env = {}) => {
             loader: 'babel-loader',
             options: {
               presets: [
-                ['@babel/preset-env', { targets: 'defaults, not ie 10-11' }],
+                [
+                  '@babel/preset-env',
+                  {
+                    bugfixes: !isProd,
+                    targets: isProd
+                      ? 'defaults, not ie 10-11'
+                      : {
+                          esmodules: true,
+                        },
+                  },
+                ],
                 ['@babel/preset-react'],
               ],
               plugins: [],
@@ -90,7 +100,7 @@ module.exports = (env = {}) => {
       new AssetsPlugin({
         removeFullPathAutoPrefix: true,
         filename: './dist/server/assets.json',
-        fileTypes: ['js', 'css'],
+        fileTypes: [isProd ? 'js' : 'mjs', 'css'],
       }),
       new CopyPlugin({
         patterns: [{ from: './src/public', to: './' }],
@@ -101,5 +111,8 @@ module.exports = (env = {}) => {
     devtool: !isProd
       ? 'cheap-module-source-map'
       : 'hidden-cheap-module-source-map',
+    experiments: {
+      outputModule: !isProd,
+    },
   }
 }

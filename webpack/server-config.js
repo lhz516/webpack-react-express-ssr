@@ -10,6 +10,7 @@ module.exports = (env = {}) => {
     mode: isProd ? 'production' : 'development',
     stats: 'errors-warnings',
     target: 'node',
+    externalsPresets: { node: true },
     externals: [nodeExternals()],
     entry: './src/server/index.js',
     output: {

@@ -49,6 +49,7 @@ pagesRouter.get('/*', async (req, res) => {
     titleTag: helmet.title.toString(),
     injectedPreloadState,
     assets,
+    isProd: __PROD__,
   })
 })
 
