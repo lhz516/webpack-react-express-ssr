@@ -15,19 +15,16 @@
     "test": "jest --config jest/config.js",
     "cov": "jest --config jest/config.js --coverage",
     "analysis": "webpack --config ./webpack/client-config.js --env prod --env analysis",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/lhz516/webpack-react-express-ssr"
   },
   "lint-staged": {
-    "*.{js}": [
-      "yarn lint:js"
-    ],
-    "*.{scss}": [
-      "yarn lint:style"
-    ]
+    "*.js": "eslint --fix",
+    "*.scss": "stylelint --fix"
   },
   "license": "MIT",
   "dependencies": {
