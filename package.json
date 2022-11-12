@@ -9,7 +9,9 @@
     "build:web": "webpack --config ./webpack/client-config.js --env prod",
     "build:node": "webpack --config ./webpack/server-config.js --env prod",
     "clean": "shx rm -rf dist && shx mkdir -p dist/server",
-    "lint": "eslint . --fix",
+    "lint": "run-s lint:js lint:style",
+    "lint:js": "eslint . --fix",
+    "lint:style": "stylelint **/*.scss --fix",
     "test": "jest --config jest/config.js",
     "cov": "jest --config jest/config.js --coverage",
     "analysis": "webpack --config ./webpack/client-config.js --env prod --env analysis",
@@ -20,8 +22,11 @@
     "url": "https://github.com/lhz516/webpack-react-express-ssr"
   },
   "lint-staged": {
-    "*.js": [
-      "yarn lint"
+    "*.{js}": [
+      "yarn lint:js"
+    ],
+    "*.{scss}": [
+      "yarn lint:style"
     ]
   },
   "license": "MIT",
@@ -79,6 +84,9 @@
     "sass": "^1.32.2",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
+    "stylelint": "^14.14.1",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-scss": "^4.3.0",
     "webpack": "^5.11.1",
     "webpack-bundle-analyzer": "^4.3.0",
     "webpack-cli": "^4.3.1",
