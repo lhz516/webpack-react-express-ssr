@@ -13,7 +13,7 @@ module.exports = {
     __PROD__: false,
     __TEST__: false,
   },
-  plugins: ['prettier', 'jsx-a11y'],
+  plugins: [],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -35,7 +35,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': [
-      'error',
+      2,
       {
         singleQuote: true,
         semi: false,

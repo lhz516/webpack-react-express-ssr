@@ -36,7 +36,7 @@ pagesRouter.get('/*', async (req, res) => {
     )
 
   renderRoot()
-  await Promise.all(todoService.util.getRunningOperationPromises())
+  await Promise.all(store.dispatch(todoService.util.getRunningQueriesThunk()))
 
   const appString = renderRoot()
 
