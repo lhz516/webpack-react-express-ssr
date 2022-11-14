@@ -4,11 +4,12 @@ A boilerplate of web development
 
 ### Usage
 
+Generate a project that named `my-app`:
+
 ```bash
-$ yarn # install node_modules after clone the repo
-$ yarn dev # start server for development
+$ npx webpack-react-express-ssr my-app
 ```
-- You can do `rm -rf .git` and `git init` to make it your own project.
+
 - Server host and port can be changed at `settings.js` at project root.
 
 ### Tech Stack
@@ -23,9 +24,12 @@ $ yarn dev # start server for development
 - Hot Module Replacement
 - Server Side Rendering
 - ESLint
+- Stylelint
 - Prettier
 - Jest
 - React Testing Library
+- Husky
+- Lint Staged
 
 ### Commands
 
