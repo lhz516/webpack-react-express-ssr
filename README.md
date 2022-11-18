@@ -1,6 +1,6 @@
 # Webpack React Express SSR
 
-A boilerplate of web development
+A boilerplate of web development with React SSR
 
 ### Usage
 

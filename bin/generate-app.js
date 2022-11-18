@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Use CLI to generate boilerplate: npx webpack-react-express-ssr my-app
+
 const { execSync } = require('child_process')
 const path = require('path')
 const fs = require('fs')
@@ -30,22 +32,25 @@ try {
 
 async function main() {
   try {
-    console.log('Downloading boilerplate...')
+    console.log(`Generating the project ${projectName}...`)
+    console.log('[1] Downloading boilerplate...')
     execSync(`git clone --depth 1 ${gitRepo} ${projectPath}`)
 
     process.chdir(projectPath)
 
-    console.log('Removing useless files')
+    console.log('[2] Removing useless files')
     execSync('npx rimraf ./.git')
     await fs.rmSync(path.join(projectPath, 'bin'), { recursive: true })
 
-    console.log('Initializing git...')
+    console.log('[3] Initializing git...')
     execSync('git init')
 
-    console.log('Installing dependencies...')
-    execSync('yarn install')
+    console.log(
+      '[4] Installing dependencies (takes some time based on your network)...'
+    )
+    execSync('yarn')
 
-    console.log('The installation is done, this is ready to use!')
+    console.log('✨ The installation is done, now ready to use!')
   } catch (error) {
     console.log(error)
     console.log('\nGenerating boilerplate failed due to the error above.')

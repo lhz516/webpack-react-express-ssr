@@ -17,15 +17,16 @@
     "analysis": "webpack --config ./webpack/client-config.js --env prod --env analysis",
     "prepare": "husky install",
     "precommit": "lint-staged"
-  }, 
-  "bin":  "./bin/generate-app.js",
+  },
+  "bin": "./bin/generate-app.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lhz516/webpack-react-express-ssr"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
-    "*.scss": "stylelint --fix"
+    "*.scss": "stylelint --fix",
+    "*.json": "prettier --write"
   },
   "license": "MIT",
   "dependencies": {
