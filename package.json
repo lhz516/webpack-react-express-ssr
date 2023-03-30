@@ -15,8 +15,7 @@
     "test": "jest --config jest/config.js",
     "cov": "jest --config jest/config.js --coverage",
     "analysis": "webpack --config ./webpack/client-config.js --env prod --env analysis",
-    "prepare": "husky install",
-    "precommit": "lint-staged"
+    "prepare": "husky install"
   },
   "bin": "./bin/generate-app.js",
   "repository": {

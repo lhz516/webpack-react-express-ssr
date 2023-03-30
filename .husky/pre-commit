@@ -5,4 +5,4 @@
 # Walkaround for windows https://github.com/typicode/husky/issues/968#issuecomment-1176848345
 exec >/dev/tty 2>&1
 
-yarn precommit
+npx lint-staged
